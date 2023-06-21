@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  eprodaja:
+    image: ${DOCKER_REGISTRY-}eprodaja
+    build:
+      context: .
+      dockerfile: eProdaja/Dockerfile
