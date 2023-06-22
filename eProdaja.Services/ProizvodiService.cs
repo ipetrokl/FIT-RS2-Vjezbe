@@ -1,20 +1,28 @@
 ﻿using System;
 using eProdaja.Model;
+using eProdaja.Services.Database;
 
 namespace eProdaja.Services
 {
 	public class ProizvodiService : IProizvodiService
 	{
-        List<Proizvodi> proizvodis = new List<Proizvodi>()
+        EProdajaContext _context;
+
+        public ProizvodiService(EProdajaContext context)
         {
-            new Proizvodi()
+            _context = context;
+        }
+        List<Model.Proizvodi> proizvodis = new List<Model.Proizvodi>()
+        {
+            new Model.Proizvodi()
             {
                 ProizvodID = 1,
                 Naziv = "Mobitel"
             }
         };
-        public IList<Proizvodi> Get()
+        public IList<Model.Proizvodi> Get()
         {
+            var list = _context.Proizvodis.ToList();
             return proizvodis;
         }
     }
