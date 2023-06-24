@@ -19,9 +19,9 @@ public class KorisniciController : ControllerBase
     }
 
     [HttpGet()]
-    public IEnumerable<Model.Korisnici> Get()
+    public async Task<IEnumerable<Model.Korisnici>> Get()
     {
-        return _service.Get();
+        return  await _service.Get();
     }
 
     [HttpPost]

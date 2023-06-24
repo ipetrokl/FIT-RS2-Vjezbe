@@ -1,4 +1,5 @@
-﻿using eProdaja.Services;
+﻿using eProdaja.Model.SearchObjects;
+using eProdaja.Services;
 using eProdaja.Services.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IProizvodiService, ProizvodiService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
+builder.Services.AddTransient<IJediniceMjereService, JediniceMjereService>();
 
 
 builder.Services.AddControllers();

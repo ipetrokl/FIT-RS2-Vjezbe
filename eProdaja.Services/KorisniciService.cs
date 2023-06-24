@@ -4,6 +4,7 @@ using System.Text;
 using AutoMapper;
 using eProdaja.Model.Requests;
 using eProdaja.Services.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProdaja.Services
 {
@@ -18,9 +19,9 @@ namespace eProdaja.Services
             _mapper = mapper;
         }
 
-        public List<Model.Korisnici> Get()
+        public async Task<List<Model.Korisnici>> Get()
         {
-            var entityList = _context.Korisnicis.ToList();
+            var entityList = await _context.Korisnicis.ToListAsync();
 
             return _mapper.Map<List<Model.Korisnici>>(entityList);
         }
