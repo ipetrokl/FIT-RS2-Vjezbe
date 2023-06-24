@@ -1,29 +1,46 @@
 ﻿using System;
+using AutoMapper;
 using eProdaja.Model;
+using eProdaja.Model.Requests;
+using eProdaja.Model.SearchObjects;
 using eProdaja.Services.Database;
+using eProdaja.Services.ProizvodiStateMachine;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace eProdaja.Services
 {
-	public class ProizvodiService : IProizvodiService
-	{
-        EProdajaContext _context;
+    public class ProizvodiService : BaseCRUDService<Model.Proizvodi, Database.Proizvodi, ProizvodiSearchObject, ProizvodiInsertRequest, ProizvodiUpdateRequest>, IProizvodiService
+    {
+        public BaseState _baseState { get; set; }
 
-        public ProizvodiService(EProdajaContext context)
+        public ProizvodiService(BaseState baseState, EProdajaContext context, IMapper mapper) : base(context, mapper)
         {
-            _context = context;
+            _baseState = baseState;
         }
-        List<Model.Proizvodi> proizvodis = new List<Model.Proizvodi>()
+
+        public override Task<Model.Proizvodi> Insert(ProizvodiInsertRequest insert)
         {
-            new Model.Proizvodi()
-            {
-                ProizvodID = 1,
-                Naziv = "Mobitel"
-            }
-        };
-        public IList<Model.Proizvodi> Get()
+            var state = _baseState.CreateState("initial");
+
+            return state.Insert(insert);
+        }
+
+        public override async Task<Model.Proizvodi> Update(int id, ProizvodiUpdateRequest update)
         {
-            var list = _context.Proizvodis.ToList();
-            return proizvodis;
+            var entity = await _context.Proizvodis.FindAsync(id);
+
+            var state = _baseState.CreateState(entity.StateMachine);
+
+            return await state.Update(id, update);
+        }
+
+        public async Task<Model.Proizvodi> Activate(int id)
+        {
+            var entity = await _context.Proizvodis.FindAsync(id);
+
+            var state = _baseState.CreateState(entity.StateMachine);
+
+            return await state.Activate(id);
         }
     }
 }

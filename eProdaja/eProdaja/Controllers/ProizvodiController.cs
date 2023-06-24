@@ -1,26 +1,23 @@
 ﻿using eProdaja.Model;
+using eProdaja.Model.Requests;
+using eProdaja.Model.SearchObjects;
 using eProdaja.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eProdaja.Controllers;
 
-//[ApiController]
-//[Route("[controller]")]
-//public class ProizvodiController : ControllerBase
-//{
-//    private readonly IProizvodiService _proizvodiService;
-//    private readonly ILogger<WeatherForecastController> _logger;
+[ApiController]
 
-//    public ProizvodiController(ILogger<WeatherForecastController> logger, IProizvodiService proizvodiService)
-//    {
-//        _logger = logger;
-//        _proizvodiService = proizvodiService;
-//    }
+public class ProizvodiController : BaseCRUDController<Model.Proizvodi, ProizvodiSearchObject, ProizvodiInsertRequest, ProizvodiUpdateRequest>
+{
+    public ProizvodiController(ILogger<BaseController<Proizvodi, ProizvodiSearchObject>> logger, IProizvodiService service) : base(logger, service)
+    {
+    }
 
-//    [HttpGet()]
-//    public IEnumerable<Proizvodi> Get()
-//    {
-//        return _proizvodiService.Get();
-//    }
-//}
+    [HttpPut("{id}/activate")]
+    public virtual async Task<Model.Proizvodi> Activate(int id)
+    {
+        return await (_service as IProizvodiService).Activate(id);
+    }
+}
 

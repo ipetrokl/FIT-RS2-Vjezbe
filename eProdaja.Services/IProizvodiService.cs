@@ -1,11 +1,13 @@
 ﻿using System;
 using eProdaja.Model;
+using eProdaja.Model.Requests;
+using eProdaja.Model.SearchObjects;
 
 namespace eProdaja.Services
 {
-	public interface IProizvodiService
+	public interface IProizvodiService : ICRUDService<Proizvodi, ProizvodiSearchObject, ProizvodiInsertRequest, ProizvodiUpdateRequest>
 	{
-		IList<Proizvodi> Get();
+		Task<Proizvodi> Activate(int id);
 	}
 }
 

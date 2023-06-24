@@ -1,13 +1,12 @@
 ﻿using System;
 using eProdaja.Model.Requests;
+using eProdaja.Model.SearchObjects;
 
 namespace eProdaja.Services
 {
-	public interface IKorisniciService
+	public interface IKorisniciService : ICRUDService<Model.Korisnici, KorisniciSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>
 	{
-		Task<List<Model.Korisnici>> Get();
-		Model.Korisnici Insert(KorisniciInsertRequest request);
-		Model.Korisnici Update(int id, KorisniciUpdateRequest request);
+	
 	}
 }
 
