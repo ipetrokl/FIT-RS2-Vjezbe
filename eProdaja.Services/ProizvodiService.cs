@@ -1,10 +1,14 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using eProdaja.Model;
 using eProdaja.Model.Requests;
 using eProdaja.Model.SearchObjects;
 using eProdaja.Services.Database;
 using eProdaja.Services.ProizvodiStateMachine;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace eProdaja.Services
@@ -12,7 +16,6 @@ namespace eProdaja.Services
     public class ProizvodiService : BaseCRUDService<Model.Proizvodi, Database.Proizvodi, ProizvodiSearchObject, ProizvodiInsertRequest, ProizvodiUpdateRequest>, IProizvodiService
     {
         public BaseState _baseState { get; set; }
-
         public ProizvodiService(BaseState baseState, EProdajaContext context, IMapper mapper) : base(context, mapper)
         {
             _baseState = baseState;
@@ -23,6 +26,7 @@ namespace eProdaja.Services
             var state = _baseState.CreateState("initial");
 
             return state.Insert(insert);
+
         }
 
         public override async Task<Model.Proizvodi> Update(int id, ProizvodiUpdateRequest update)
@@ -42,6 +46,7 @@ namespace eProdaja.Services
 
             return await state.Activate(id);
         }
+
     }
 }
 

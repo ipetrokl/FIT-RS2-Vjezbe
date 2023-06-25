@@ -29,8 +29,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="ProizvodiStateMachine\" />
+    <None Remove="Database\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ProizvodiStateMachine\" />
+    <Folder Include="Database\" />
   </ItemGroup>
 </Project>
