@@ -33,9 +33,12 @@ Console.WriteLine("Hello, World!");
 //Console.WriteLine(" Press [enter] to exit.");
 //Console.ReadLine();
 
+Console.WriteLine("Provide SubscriptionId");
+var subsriptionId = Console.ReadLine();
+
 using (var bus = RabbitHutch.CreateBus("host=localhost"))
 {
-    bus.PubSub.Subscribe<Proizvodi>("test", HandleTextMessage);
+    bus.PubSub.Subscribe<Proizvodi>(subsriptionId, HandleTextMessage);
     Console.WriteLine("Listening for messages. Hit <return> to quit.");
     Console.ReadLine();
 }
