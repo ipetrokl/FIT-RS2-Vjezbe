@@ -29,10 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\eProdaja.Model\eProdaja.Model.csproj">
+    <ProjectReference Include="..\eProdaja.Model\eProdaja.Model.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\..\eProdaja.Services\eProdaja.Services.csproj">
+    <ProjectReference Include="..\eProdaja.Services\eProdaja.Services.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
