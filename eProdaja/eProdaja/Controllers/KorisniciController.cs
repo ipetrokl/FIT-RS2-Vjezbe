@@ -2,6 +2,7 @@
 using eProdaja.Model.Requests;
 using eProdaja.Model.SearchObjects;
 using eProdaja.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eProdaja.Controllers;
@@ -15,5 +16,10 @@ public class KorisniciController : BaseCRUDController<Model.Korisnici, Korisnici
     { 
     }
 
+    [Authorize(Roles = "Administrator")]
+    public override Task<Korisnici> Insert([FromBody] KorisniciInsertRequest insert)
+    {
+        return base.Insert(insert);
+    }
 }
 

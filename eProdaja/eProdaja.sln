@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.Model", "eProdaja.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.Services", "eProdaja.Services\eProdaja.Services.csproj", "{3589376D-93E0-4881-BCD5-555C867F6E2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.Subscriber", "eProdaja.Subscriber\eProdaja.Subscriber.csproj", "{B836562A-ED2C-4587-80D4-F3C39AFA5726}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3589376D-93E0-4881-BCD5-555C867F6E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3589376D-93E0-4881-BCD5-555C867F6E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3589376D-93E0-4881-BCD5-555C867F6E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B836562A-ED2C-4587-80D4-F3C39AFA5726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B836562A-ED2C-4587-80D4-F3C39AFA5726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B836562A-ED2C-4587-80D4-F3C39AFA5726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B836562A-ED2C-4587-80D4-F3C39AFA5726}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
