@@ -36,6 +36,16 @@ namespace eProdaja.Services.ProizvodiStateMachine
             await _context.SaveChangesAsync();
             return _mapper.Map<Model.Proizvodi>(entity);
         }
+
+        public override async Task<List<string>> AllowedActions()
+        {
+            var list = await base.AllowedActions();
+
+            list.Add("Update");
+            list.Add("Active");
+
+            return list;
+        }
     }
 }
 

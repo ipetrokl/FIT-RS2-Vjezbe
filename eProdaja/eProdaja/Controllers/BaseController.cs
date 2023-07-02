@@ -2,11 +2,13 @@
 using eProdaja.Model;
 using eProdaja.Model.Requests;
 using eProdaja.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eProdaja.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     public class BaseController<T, TSearch> : ControllerBase where T : class where TSearch : class
     {
         protected readonly IService<T, TSearch> _service;
