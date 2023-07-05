@@ -1,8 +1,36 @@
 version: '3.4'
 
 services:
-  eprodaja:
-    image: ${DOCKER_REGISTRY-}eprodaja
+  eprodaja-sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1v@nPetrovic
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+      - 1433
+    networks:
+      - eprodajanet2023
+
+  eprodaja-api:
+    restart: unless-stopped
     build:
       context: .
-      dockerfile: eProdaja/Dockerfile
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=eprodaja-sql,1433;Database=eprodaja;User=sa;Password=1v@nPetrovic;ConnectRetryCount=0; TrustedServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 7084:7084
+    networks:
+      - eprodajanet2023
+    links:
+      - eprodaja-sql
+    depends_on:
+      - eprodaja-sql
+
+networks:
+  eprodajanet2023:
+    driver: bridge
