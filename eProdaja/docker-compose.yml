@@ -20,7 +20,7 @@ services:
     build:
       context: .
     environment:
-      - ConnectionStrings:DefaultConnection=Server=eprodaja-sql,1433;Database=eprodaja;User=sa;Password=1v@nPetrovic;ConnectRetryCount=0; TrustedServerCertificate=True
+      - ConnectionStrings:DefaultConnection=Server=eprodaja-sql,1433;Database=eProdaja;User=sa;Password=1v@nPetrovic;ConnectRetryCount=0;TrustServerCertificate=True
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - 7084:7084

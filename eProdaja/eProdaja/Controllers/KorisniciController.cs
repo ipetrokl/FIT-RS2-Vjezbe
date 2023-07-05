@@ -16,10 +16,10 @@ public class KorisniciController : BaseCRUDController<Model.Korisnici, Korisnici
     { 
     }
 
-    //[Authorize(Roles = "Administrator")]
-    //public override Task<Korisnici> Insert([FromBody] KorisniciInsertRequest insert)
-    //{
-    //    return base.Insert(insert);
-    //}
+    [Authorize(Roles = "Administrator")]
+    public override Task<Korisnici> Insert([FromBody] KorisniciInsertRequest insert)
+    {
+        return base.Insert(insert);
+    }
 }
 
