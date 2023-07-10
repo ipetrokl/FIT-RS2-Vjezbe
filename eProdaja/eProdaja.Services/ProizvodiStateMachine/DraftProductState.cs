@@ -3,6 +3,7 @@ using System.Text;
 using AutoMapper;
 using Azure.Core;
 using EasyNetQ;
+using eProdaja.Model;
 using eProdaja.Model.Requests;
 using eProdaja.Services.Database;
 using RabbitMQ.Client;
@@ -23,6 +24,17 @@ namespace eProdaja.Services.ProizvodiStateMachine
             var entity = await set.FindAsync(id);
 
             _mapper.Map(request, entity);
+
+            if (entity.Cijena < 0)
+            {
+                throw new Exception("Cijena ne moze biti u minusu");
+            }
+
+
+            if (entity.Cijena < 1)
+            {
+                throw new UserException("Cijena ispod minimuma");
+            }
 
             await _context.SaveChangesAsync();
             return _mapper.Map<Model.Proizvodi>(entity);

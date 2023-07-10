@@ -1,3 +1,5 @@
+import 'package:eprodaja_admin/screens/product_detail_screen.dart';
+import 'package:eprodaja_admin/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -10,20 +12,27 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return MasterScreenWidget(
+      child: Container(
       child: Column(
         children: [
           Text("Test"),
           SizedBox(
-            height: 8,
+            height: 8, 
           ),
           ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ProductDetailScreen(),
+                      ),
+                    );
               },
               child: Text("Login"))
         ],
       ),
+    ),
+    title: "Product list",
     );
   }
 }

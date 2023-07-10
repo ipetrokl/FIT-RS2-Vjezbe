@@ -24,11 +24,13 @@ namespace eProdaja.Services
 
             PagedResult<T> result = new PagedResult<T>();
 
-            result.Count = await query.CountAsync();
+            
 
             query = AddFilter(query, search);
 
             query = AddInclude(query, search);
+
+            result.Count = await query.CountAsync();
 
             if (search?.Page.HasValue == true && search?.PageSize.HasValue == true)
             {
@@ -37,7 +39,8 @@ namespace eProdaja.Services
 
             var list = await query.ToListAsync();
 
-            result.Result = _mapper.Map<List<T>>(list);
+            var tmp = _mapper.Map<List<T>>(list);
+            result.Result = tmp;
 
             return result;
         }

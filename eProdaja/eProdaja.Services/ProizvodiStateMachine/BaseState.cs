@@ -50,6 +50,7 @@ namespace eProdaja.Services.ProizvodiStateMachine
             switch (StateName)
             {
                 case "initial":
+                    case null:
                     return _serviceProvider.GetService<InitialProductState>();
                     break;
                 case "draft":
