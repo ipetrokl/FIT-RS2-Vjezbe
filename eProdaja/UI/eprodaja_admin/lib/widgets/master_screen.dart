@@ -1,3 +1,4 @@
+import 'package:eprodaja_admin/main.dart';
 import 'package:eprodaja_admin/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,16 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
         child: ListView(
           children: [
             ListTile(
+              title: Text("back"),
+              onTap: () {
+                Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
+              },
+            ),
+            ListTile(
               title: Text("Proizvodi"),
               onTap: (){
                  Navigator.of(context).push(
@@ -34,7 +45,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
               },
             ),
             ListTile(
-              title: Text("Proizvodi"),
+              title: Text("Detalji"),
               onTap: (){
                  Navigator.of(context).push(
                       MaterialPageRoute(
