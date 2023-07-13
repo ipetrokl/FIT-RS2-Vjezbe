@@ -45,5 +45,5 @@ using (var bus = RabbitHutch.CreateBus("host=localhost"))
 
 void HandleTextMessage(Proizvodi entity)
 {
-    Console.WriteLine($"Received: {entity?.ProizvodID}, {entity?.Naziv}");
+    Console.WriteLine($"Received: {entity?.ProizvodId}, {entity?.Naziv}");
 }

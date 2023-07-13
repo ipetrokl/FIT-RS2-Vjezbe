@@ -1,8 +1,12 @@
 import 'package:eprodaja_admin/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../models/product.dart';
+
+// ignore: must_be_immutable
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({super.key});
+  Product? product;
+  ProductDetailScreen({super.key, this.product});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -13,7 +17,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return MasterScreenWidget(
       child: Text("Details"),
-      title: "Details",
+      title: this.widget.product?.naziv ?? "Details",
     );
   }
 }
