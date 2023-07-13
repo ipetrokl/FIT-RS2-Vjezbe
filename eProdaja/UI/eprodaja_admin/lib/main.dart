@@ -1,4 +1,6 @@
+import 'package:eprodaja_admin/providers/jedinice_mjere.dart';
 import 'package:eprodaja_admin/providers/product_provider.dart';
+import 'package:eprodaja_admin/providers/vrste_proizvoda.dart';
 import 'package:eprodaja_admin/screens/product_list_screen.dart';
 import 'package:eprodaja_admin/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,9 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => ProductProvider())],
+    providers: [ChangeNotifierProvider(create: (_) => ProductProvider()),
+                ChangeNotifierProvider(create: (_) => JediniceMjereProvider()),
+                ChangeNotifierProvider(create: (_) => VrsteProizvodaProvider())],
     child: const MyMaterialApp(),
   ));
 }
