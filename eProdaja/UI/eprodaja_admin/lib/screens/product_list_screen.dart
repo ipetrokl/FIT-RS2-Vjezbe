@@ -1,5 +1,3 @@
-
-
 import 'package:eprodaja_admin/models/search_result.dart';
 import 'package:eprodaja_admin/providers/product_provider.dart';
 import 'package:eprodaja_admin/screens/product_detail_screen.dart';
@@ -36,111 +34,130 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return MasterScreenWidget(
       title: "Product list",
       child: Container(
-        child: Column(children: [
-          _buildSearch(),
-          _buildDataListView()
-        ]),
+        child: Column(children: [_buildSearch(), _buildDataListView()]),
       ),
     );
   }
 
   Row _buildSearch() {
     return Row(
-          children: [
-             Expanded(
-              child: TextField(
-                  decoration: const InputDecoration(
-                      labelText: "Naziv ili sifra"),
-                      controller: _ftsController,
-                ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-             Expanded(
-              child: TextField(
-                  decoration: const InputDecoration(
-                      labelText: "Sifra"),
-                      controller: _sifraController,
-                ),
-            ),
-            ElevatedButton(
-                onPressed: () async {
-                  var data = await _productProvider.get(filter: {
-                    'fts': _ftsController.text,
-                    'sifra': _sifraController.text
-                  });
+      children: [
+        Expanded(
+          child: TextField(
+            decoration: const InputDecoration(labelText: "Naziv ili sifra"),
+            controller: _ftsController,
+          ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          child: TextField(
+            decoration: const InputDecoration(labelText: "Sifra"),
+            controller: _sifraController,
+          ),
+        ),
+        ElevatedButton(
+            onPressed: () async {
+              var data = await _productProvider.get(filter: {
+                'fts': _ftsController.text,
+                'sifra': _sifraController.text
+              });
 
-                  setState(() {
-                    result = data;
-                  });
-                  // print("data: ${data.result[0].proizvodId}");
-                },
-                child: const Text("Pretraga")),
-          ],
-        );
+              setState(() {
+                result = data;
+              });
+              // print("data: ${data.result[0].proizvodId}");
+            },
+            child: const Text("Pretraga")),
+        SizedBox( width: 20,),
+        ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailScreen(product: null),
+                ),
+              );
+              // print("data: ${data.result[0].proizvodId}");
+            },
+            child: const Text("Dodaj")),
+      ],
+    );
   }
 
   Widget _buildDataListView() {
-    return Expanded(child: SingleChildScrollView(child: DataTable(columns: const [
-          DataColumn(
-            label: Expanded(
-              child: Text(
-                'ID',
-                style: TextStyle(fontStyle: FontStyle.italic),
+    return Expanded(
+        child: SingleChildScrollView(
+      child: DataTable(
+          columns: const [
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'ID',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
             ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: Text(
-                'Sifra',
-                style: TextStyle(fontStyle: FontStyle.italic),
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Sifra',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
             ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: Text(
-                'Naziv',
-                style: TextStyle(fontStyle: FontStyle.italic),
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Naziv',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
             ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: Text(
-                'Cijena',
-                style: TextStyle(fontStyle: FontStyle.italic),
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Cijena',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
             ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: Text(
-                'Slika',
-                style: TextStyle(fontStyle: FontStyle.italic),
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Slika',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
-            ),
-          )
-        ], rows: result?.result.map((Product e) => DataRow( onSelectChanged: (selected) => {
-          if(selected == true) {
-            Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetailScreen(product: e),
-                        ),
-                      )
-          } 
-        }
-          ,cells: [
-          DataCell(Text(e.proizvodId?.toString() ?? "")),
-          DataCell(Text(e.sifra ?? "")),
-          DataCell(Text(e.naziv ?? "")),
-          DataCell(Text(formatNumber(e.cijena))),
-          DataCell(e.slika != "" ? Container(width: 100, height: 100, child: imageFromBase64String(e.slika!)): Text(""))
-        ])).toList() ?? []
-        ),
-        )
-        );
+            )
+          ],
+          rows: result?.result
+                  .map((Product e) => DataRow(
+                          onSelectChanged: (selected) => {
+                                if (selected == true)
+                                  {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetailScreen(product: e),
+                                      ),
+                                    )
+                                  }
+                              },
+                          cells: [
+                            DataCell(Text(e.proizvodId?.toString() ?? "")),
+                            DataCell(Text(e.sifra ?? "")),
+                            DataCell(Text(e.naziv ?? "")),
+                            DataCell(Text(formatNumber(e.cijena))),
+                            DataCell(e.slika != ""
+                                ? Container(
+                                    width: 100,
+                                    height: 100,
+                                    child: imageFromBase64String(e.slika!))
+                                : Text(""))
+                          ]))
+                  .toList() ??
+              []),
+    ));
   }
 }

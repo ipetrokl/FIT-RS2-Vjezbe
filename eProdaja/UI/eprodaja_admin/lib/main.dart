@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eprodaja_admin/providers/jedinice_mjere.dart';
 import 'package:eprodaja_admin/providers/product_provider.dart';
 import 'package:eprodaja_admin/providers/vrste_proizvoda.dart';
@@ -216,5 +218,13 @@ class LoginPage extends StatelessWidget {
         ),
       )),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

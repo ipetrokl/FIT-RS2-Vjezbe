@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:eprodaja_admin/main.dart';
 import 'package:eprodaja_admin/models/search_result.dart';
 import 'package:eprodaja_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
 
 abstract class BaseProvider<T> with ChangeNotifier {
   static String? _baseUrl;
@@ -15,6 +16,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
     _endpoint = endpoint;
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7084/");
+    // defaultValue: "https://10.0.2.2:7084/");
+
+    HttpOverrides.global = MyHttpOverrides();
   }
 
   Future<SearchResult<T>> get({dynamic filter}) async {
@@ -38,6 +42,38 @@ abstract class BaseProvider<T> with ChangeNotifier {
       }
 
       return result;
+    } else {
+      throw new Exception("Unknown error");
+    }
+  }
+
+  Future<T> insert(dynamic request) async {
+    var url = "$_baseUrl$_endpoint";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.post(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return fromJson(data);
+    } else {
+      throw new Exception("Unknown error");
+    }
+  }
+
+  Future<T> update(int id, [dynamic request]) async {
+    var url = "$_baseUrl$_endpoint/$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.put(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return fromJson(data);
     } else {
       throw new Exception("Unknown error");
     }

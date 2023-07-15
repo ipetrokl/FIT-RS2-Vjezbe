@@ -31,5 +31,11 @@ public class ProizvodiController : BaseCRUDController<Model.Proizvodi, Proizvodi
     {
         return await (_service as IProizvodiService).AllowedActions(id);
     }
+
+    [HttpGet("{id}/recommend")]
+    public virtual List<Model.Proizvodi> Recomend(int id)
+    {
+        return (_service as IProizvodiService).Recommend(id);
+    }
 }
 
